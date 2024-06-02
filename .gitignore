@@ -1,7 +1,4 @@
 /.bsp/
 /project/
 target
-./.idea
-./.idea/*
-./.idea/.gitignore
-./.idea/*.*
+/.idea/
