@@ -39,12 +39,17 @@ object FuncSets {
   }
 }
 
+//noinspection NoTargetNameAnnotationForOperatorLikeDefinition
 sealed trait FuncSet[A] extends (A => Boolean) {
   def contains(a: A): Boolean
   def apply(a: A): Boolean = contains(a)
 
   infix def +(a: A): FuncSet[A]
+  infix def -(a: A): FuncSet[A]
+  infix def --(anotherSet: FuncSet[A]): FuncSet[A]
   infix def union(anotherSet: FuncSet[A]): FuncSet[A]
+  infix def intersect(anotherSet: FuncSet[A]): FuncSet[A]
+  def unary_! : FuncSet[A]
 
   def map[B](f: A => B): FuncSet[B]
   def flatMap[B](f: A => FuncSet[B]): FuncSet[B]
@@ -64,6 +69,8 @@ object FuncSet {
     loop(xs, EmptySet())
   }
 }
+
+//noinspection NoTargetNameAnnotationForOperatorLikeDefinition
 final case class EmptySet[A]() extends FuncSet[A] {
   override def contains(a: A): Boolean = false
   override infix def +(a: A): FuncSet[A] = Cons(a, this)
@@ -72,8 +79,49 @@ final case class EmptySet[A]() extends FuncSet[A] {
   override def flatMap[B](f: A => FuncSet[B]): FuncSet[B] = EmptySet()
   override def filter(predicate: A => Boolean): FuncSet[A] = this
   override def foreach(f: A => Unit): Unit = ()
+
+  override infix def -(a: A): FuncSet[A] = this
+
+  override infix def --(anotherSet: FuncSet[A]): FuncSet[A] = this
+
+  override infix def intersect(anotherSet: FuncSet[A]): FuncSet[A] = this
+
+  override def unary_! : FuncSet[A] = UniversalSet()
 }
 
+//noinspection NoTargetNameAnnotationForOperatorLikeDefinition
+class PBSet[A](property: A => Boolean) extends FuncSet[A] {
+  override def contains(a: A): Boolean = property(a)
+
+  override infix def +(a: A): FuncSet[A] = new PBSet(x => x == a || property(x))
+
+  override infix def -(a: A): FuncSet[A] = filter(x => x != a)
+
+  override infix def --(anotherSet: FuncSet[A]): FuncSet[A] = filter(!anotherSet)
+
+  override infix def union(anotherSet: FuncSet[A]): FuncSet[A] = new PBSet(x => property(x) || anotherSet(x))
+
+  override infix def intersect(anotherSet: FuncSet[A]): FuncSet[A] =
+    new PBSet(x => property(x) && anotherSet(x))
+
+  override def unary_! : FuncSet[A] = new PBSet(x => !contains(x))
+
+  override def map[B](f: A => B): FuncSet[B] = ???
+
+  override def flatMap[B](f: A => FuncSet[B]): FuncSet[B] = ???
+
+  override def filter(predicate: A => Boolean): FuncSet[A] = new PBSet(x => property(x) && predicate(x))
+
+  override def foreach(f: A => Unit): Unit = ???
+}
+
+
+
+
+//noinspection NoTargetNameAnnotationForOperatorLikeDefinition
+final case class UniversalSet[A]() extends PBSet[A](_ => true)
+
+//noinspection NoTargetNameAnnotationForOperatorLikeDefinition
 final case class Cons[A](head: A, tail: FuncSet[A]) extends FuncSet[A] {
   override def contains(a: A): Boolean = head == a || tail.contains(a)
 
@@ -99,4 +147,12 @@ final case class Cons[A](head: A, tail: FuncSet[A]) extends FuncSet[A] {
     f(head)
     tail.foreach(f)
   }
+
+  override infix def -(a: A): FuncSet[A] = filter(e => e != a)
+
+  override infix def --(anotherSet: FuncSet[A]): FuncSet[A] = filter(!anotherSet) // using unary_! operator
+
+  override infix def intersect(anotherSet: FuncSet[A]): FuncSet[A] = filter(anotherSet)
+
+  override def unary_! : FuncSet[A] = ???
 }
