@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm
+package org.kogu.rockthejvm.init.lazyEval
 
 import scala.annotation.tailrec
 

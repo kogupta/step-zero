@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.patmat
+package org.kogu.rockthejvm.init.patmat
 
 object PatternMatch2 {
   def main(args: Array[String]): Unit = {

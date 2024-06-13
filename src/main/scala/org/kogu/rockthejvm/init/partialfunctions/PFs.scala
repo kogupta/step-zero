@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.partialfunctions
+package org.kogu.rockthejvm.init.partialfunctions
 
 object PFs {
   private val pf: PartialFunction[Int, Int] = {

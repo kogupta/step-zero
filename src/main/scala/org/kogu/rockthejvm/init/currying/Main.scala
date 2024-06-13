@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.currying
+package org.kogu.rockthejvm.init.currying
 
 //noinspection TypeAnnotation,ScalaWeakerAccess
 object Main {

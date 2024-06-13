@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.lazyEval
+package org.kogu.rockthejvm.init.lazyEval
 
 import scala.util.Random
 

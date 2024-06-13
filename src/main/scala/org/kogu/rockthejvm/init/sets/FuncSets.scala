@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.sets
+package org.kogu.rockthejvm.init.sets
 
 import scala.annotation.tailrec
 

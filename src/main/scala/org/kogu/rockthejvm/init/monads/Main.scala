@@ -1,5 +1,4 @@
-package org.kogu.rockthejvm.monads
-
+package org.kogu.rockthejvm.init.monads
 
 //noinspection ScalaWeakerAccess
 object Main {
@@ -40,7 +39,7 @@ object Main {
     val g: Int => PossiblyMonad[Int] = n => PossiblyMonad(() => n * 2)
     val x = PossiblyMonad(() => 42)
 
-    import org.kogu.rockthejvm.monads.Main.PossiblyMonad.pure
+    import PossiblyMonad.pure
     // monad laws
     // prop 1 - left identity
 //    assert(pure(42).flatMap(f) == f(42), "left identity failed")

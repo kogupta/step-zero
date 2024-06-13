@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.funcCollections
+package org.kogu.rockthejvm.init.funcCollections
 
 object Main {
   def main(args: Array[String]): Unit = {

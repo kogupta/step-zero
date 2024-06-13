@@ -1,4 +1,4 @@
-package org.kogu.rockthejvm.patmat
+package org.kogu.rockthejvm.init.patmat
 
 object SyntaxSugars {
   // 1. methods with single argument
