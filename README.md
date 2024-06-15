@@ -25,8 +25,28 @@ Working through [Advanced Scala3](https://rockthejvm.com/courses/enrolled/151423
       
       val xs: List[String] = Nil // compile for covariant List only
       ```
+  - Similar explanation for Java: https://stackoverflow.com/a/8482286
+    ```java
+    class A {
+      public S f(U u) { ... }
+    }
+
+    class B extends A {
+      @Override
+      public T f(V v) { ... }
+    }
+
+    B b = new B();
+    T t = b.f(v);
+    A a = ...; // Might have type B
+    S s = a.f(u); // and then do V v = u;
+    ```
+    - We can see:
+      - T must be subtype S (**covariant**, as B is subtype of A).
+      - V must be supertype of U (**contravariant**, as contra inheritance direction).
+      This is also referred to as `covariance for producers`, `contravariance for consumers`
+
   - [Scala variance](https://blog.rockthejvm.com/scala-variance-positions/) article and [video](https://www.youtube.com/watch?v=aUmj7jnXet4)
-  - [Contravariance hard!](https://blog.rockthejvm.com/contravariance/) article and [video](https://www.youtube.com/watch?v=b1ftkK1zhxI)
 
 ### HKT
   - hit a wall with red scala book using Java? [continue with Scala](https://typelevel.org/blog/2016/08/21/hkts-moving-forward.html)
