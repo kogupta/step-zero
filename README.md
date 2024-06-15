@@ -50,7 +50,7 @@ Working through [Advanced Scala3](https://rockthejvm.com/courses/enrolled/151423
   - [Scala variance](https://blog.rockthejvm.com/scala-variance-positions/) article and [video](https://www.youtube.com/watch?v=aUmj7jnXet4)
   - Rules of thumb:
     | "rule" | variance | example |
-    | -- | -- |
+    |-- | -- |-- |
     | type _produces_ values of type A | `covariant` | `trait List[+A]` | 
     | type _consumes_ values of type A | `contravariant` | `trait Sink[-A]` | 
     | otherwise | `invariant` | `trait Semigroup[A]` | 
