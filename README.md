@@ -54,6 +54,7 @@ Working through [Advanced Scala3](https://rockthejvm.com/courses/enrolled/151423
     | type _produces_ values of type A | `covariant` | `trait List[+A]` | 
     | type _consumes_ values of type A | `contravariant` | `trait Sink[-A]` | 
     | otherwise | `invariant` | `trait Semigroup[A]` | 
+    
     Refer: https://blog.petruescu.net/programming/types/scala-types-contravariance/
 
 ### HKT
